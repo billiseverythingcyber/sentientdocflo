@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env/
+.streamlit/*.yaml
+.streamlit/*.yml
+.DS_Store
+.vscode/
+.idea/
+.pytest_cache/
+.coverage
+htmlcov/
+/data/outputs/*
+!data/outputs/.gitkeep
