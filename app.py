@@ -11,19 +11,19 @@ from src.extractors import load_rules, extract_fields
 # ----------- CONFIG -----------
 
 HIGH_VALUE_THRESHOLD = 5000
-st.write("🚨 NEW VERSION LOADED 🚨")
+
 st.set_page_config(
     page_title="SentientDocFLO",
     layout="wide"
 )
 
-# ----------- STYLE (FONT + COLORS) -----------
+# ----------- STYLE -----------
 
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 
-/* Global Font */
+/* Global font */
 html, body, [class*="css"] {
     font-family: 'Michroma', sans-serif;
 }
@@ -32,11 +32,6 @@ html, body, [class*="css"] {
 .stApp {
     background: linear-gradient(135deg, #020617, #0f172a, #1e1b4b);
     color: #e2e8f0;
-}
-
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #020617, #0f172a);
 }
 
 /* Buttons */
@@ -66,7 +61,6 @@ section[data-testid="stSidebar"] {
 st.markdown("""
 <div style="text-align:center;">
     <h1 style="
-        font-family: 'Michroma', sans-serif;
         background: linear-gradient(90deg, #a78bfa, #38bdf8, #22d3ee);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -74,10 +68,9 @@ st.markdown("""
     ">
         SentientDocFLO
     </h1>
-
-    <p style="color:#94a3b8; font-size:14px;">
+    <div style="color:#94a3b8; font-size:14px;">
         Intelligent Document Processing • Automated • Accurate • Scalable
-    </p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -88,39 +81,35 @@ st.markdown("---")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.markdown("""
-    <div style="font-family: 'Michroma', sans-serif;">
-        <h3>📥 Input</h3>
-        <p>PDF<br>DOCX<br>Multi-file Upload</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("### 📥 Input")
+    st.write("PDF")
+    st.write("DOCX")
+    st.write("Multi-file Upload")
 
 with col2:
-    st.markdown("""
-    <div style="font-family: 'Michroma', sans-serif;">
-        <h3>🧠 Processing</h3>
-        <p>
-        Text Extraction<br>
-        Classification<br>
-        Field Detection<br>
-        Validation
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("### 🧠 Processing")
+    st.write("Text Extraction")
+    st.write("Classification")
+    st.write("Field Detection")
+    st.write("Validation")
 
 with col3:
-    st.markdown("""
-    <div style="font-family: 'Michroma', sans-serif;">
-        <h3>📤 Output</h3>
-        <p>
-        Structured Data<br>
-        Alerts<br>
-        CSV Export
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("### 📤 Output")
+    st.write("Structured Data")
+    st.write("Alerts")
+    st.write("CSV Export")
 
 st.markdown("---")
+
+# ----------- UPLOAD (MAIN SCREEN - MOBILE FIX) -----------
+
+st.markdown("## 📂 Upload Documents")
+
+uploaded_files = st.file_uploader(
+    "Upload PDF or DOCX",
+    type=["pdf", "docx"],
+    accept_multiple_files=True
+)
 
 # ----------- LOAD RULES -----------
 
@@ -176,18 +165,7 @@ def flag_high_value(fields: dict):
 
     return False
 
-# ----------- SIDEBAR -----------
-
-with st.sidebar:
-    st.title("Upload Documents")
-
-    uploaded_files = st.file_uploader(
-        "Upload PDF or DOCX",
-        type=["pdf", "docx"],
-        accept_multiple_files=True
-    )
-
-# ----------- MAIN -----------
+# ----------- MAIN PROCESS -----------
 
 results = []
 total_missing = 0
@@ -242,7 +220,7 @@ if uploaded_files:
 
 if results:
     st.markdown("---")
-    st.markdown("## Output Dataset")
+    st.markdown("## 📊 Output Dataset")
 
     df = pd.DataFrame(results)
 
